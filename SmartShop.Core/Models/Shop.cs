@@ -8,8 +8,8 @@
 
         public string Name { get; set; }
 
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
-        public byte[] Logo { get; set; }
+        public byte[]? Logo { get; set; }
     }
 }
