@@ -1,4 +1,4 @@
-﻿namespace SmartShop.Core
+﻿namespace SmartShop.Core.Models
 {
     public class User
     {
@@ -15,5 +15,5 @@
         public bool IsLocked { get; set; }
 
         public Shop Shop { get; set; }
-}
+    }
 }

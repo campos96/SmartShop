@@ -1,4 +1,4 @@
-﻿namespace SmartShop.Core
+﻿namespace SmartShop.Core.Models
 {
     public class Shop
     {
