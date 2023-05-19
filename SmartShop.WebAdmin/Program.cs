@@ -1,4 +1,9 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using SmartShop.WebAdmin.Data;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<SmartShopContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SmartShopContext") ?? throw new InvalidOperationException("Connection string 'SmartShopContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
