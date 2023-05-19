@@ -10,10 +10,10 @@
 
         public string UserName { get; set; }
 
-        public IEnumerable<UserRole> Roles { get; set; }
-
         public bool IsLocked { get; set; }
 
-        public Shop Shop { get; set; }
+        public IEnumerable<UserRole>? Roles { get; set; }
+
+        public Shop? Shop { get; set; }
     }
 }
