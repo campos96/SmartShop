@@ -22,8 +22,11 @@ namespace SmartShop.WebAdmin.Controllers
         // GET: Users
         public async Task<IActionResult> Index()
         {
-            var smartShopContext = _context.Users.Include(u => u.Shop);
-            return View(await smartShopContext.ToListAsync());
+            if (_context.Users == null)
+            {
+                return Problem("Entity set 'SmartShopContext.Users'  is null.");
+            }
+            return View(await _context.Users.ToListAsync());
         }
 
         // GET: Users/Details/5
@@ -53,11 +56,9 @@ namespace SmartShop.WebAdmin.Controllers
         }
 
         // POST: Users/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,AccountId,ShopId,UserName,IsLocked")] User user)
+        public async Task<IActionResult> Create(User user)
         {
             if (ModelState.IsValid)
             {
@@ -88,11 +89,9 @@ namespace SmartShop.WebAdmin.Controllers
         }
 
         // POST: Users/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,AccountId,ShopId,UserName,IsLocked")] User user)
+        public async Task<IActionResult> Edit(Guid id, User user)
         {
             if (id != user.Id)
             {
@@ -156,14 +155,14 @@ namespace SmartShop.WebAdmin.Controllers
             {
                 _context.Users.Remove(user);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool UserExists(Guid id)
         {
-          return (_context.Users?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Users?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

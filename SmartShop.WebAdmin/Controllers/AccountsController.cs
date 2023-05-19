@@ -22,9 +22,12 @@ namespace SmartShop.WebAdmin.Controllers
         // GET: Accounts
         public async Task<IActionResult> Index()
         {
-              return _context.Accounts != null ? 
-                          View(await _context.Accounts.ToListAsync()) :
-                          Problem("Entity set 'SmartShopContext.Accounts'  is null.");
+            if (_context.Accounts == null)
+            {
+                return Problem("Entity set 'SmartShopContext.Accounts'  is null.");
+            }
+
+            return View(await _context.Accounts.ToListAsync());
         }
 
         // GET: Accounts/Details/5
@@ -52,11 +55,9 @@ namespace SmartShop.WebAdmin.Controllers
         }
 
         // POST: Accounts/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserName,LastName,FirstName,Email,Password,IsLocked,Created,Updated,EmailConfirmed,ResetPasswordToken,ResetPasswordExpiration")] Account account)
+        public async Task<IActionResult> Create(Account account)
         {
             if (ModelState.IsValid)
             {
@@ -85,11 +86,9 @@ namespace SmartShop.WebAdmin.Controllers
         }
 
         // POST: Accounts/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,UserName,LastName,FirstName,Email,Password,IsLocked,Created,Updated,EmailConfirmed,ResetPasswordToken,ResetPasswordExpiration")] Account account)
+        public async Task<IActionResult> Edit(Guid id, Account account)
         {
             if (id != account.Id)
             {
@@ -151,14 +150,14 @@ namespace SmartShop.WebAdmin.Controllers
             {
                 _context.Accounts.Remove(account);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool AccountExists(Guid id)
         {
-          return (_context.Accounts?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Accounts?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

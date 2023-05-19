@@ -22,9 +22,11 @@ namespace SmartShop.WebAdmin.Controllers
         // GET: Shops
         public async Task<IActionResult> Index()
         {
-              return _context.Shops != null ? 
-                          View(await _context.Shops.ToListAsync()) :
-                          Problem("Entity set 'SmartShopContext.Shop'  is null.");
+            if (_context.Shops == null)
+            {
+                return Problem("Entity set 'SmartShopContext.Shop'  is null.");
+            }
+            return View(await _context.Shops.ToListAsync());
         }
 
         // GET: Shops/Details/5
@@ -52,11 +54,9 @@ namespace SmartShop.WebAdmin.Controllers
         }
 
         // POST: Shops/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ShortName,Name,Description,Logo")] Shop shop)
+        public async Task<IActionResult> Create(Shop shop)
         {
             if (ModelState.IsValid)
             {
@@ -85,11 +85,9 @@ namespace SmartShop.WebAdmin.Controllers
         }
 
         // POST: Shops/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,ShortName,Name,Description,Logo")] Shop shop)
+        public async Task<IActionResult> Edit(Guid id, Shop shop)
         {
             if (id != shop.Id)
             {
@@ -151,14 +149,14 @@ namespace SmartShop.WebAdmin.Controllers
             {
                 _context.Shops.Remove(shop);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ShopExists(Guid id)
         {
-          return (_context.Shops?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Shops?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

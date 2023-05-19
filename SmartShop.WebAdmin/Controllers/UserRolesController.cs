@@ -22,9 +22,11 @@ namespace SmartShop.WebAdmin.Controllers
         // GET: UserRoles
         public async Task<IActionResult> Index()
         {
-              return _context.UserRoles != null ? 
-                          View(await _context.UserRoles.ToListAsync()) :
-                          Problem("Entity set 'SmartShopContext.UserRoles'  is null.");
+            if (_context.UserRoles == null)
+            {
+                return Problem("Entity set 'SmartShopContext.UserRoles'  is null.");
+            }
+            return View(await _context.UserRoles.ToListAsync());
         }
 
         // GET: UserRoles/Details/5
@@ -52,11 +54,9 @@ namespace SmartShop.WebAdmin.Controllers
         }
 
         // POST: UserRoles/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserId,Role")] UserRole userRole)
+        public async Task<IActionResult> Create(UserRole userRole)
         {
             if (ModelState.IsValid)
             {
@@ -85,11 +85,9 @@ namespace SmartShop.WebAdmin.Controllers
         }
 
         // POST: UserRoles/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,UserId,Role")] UserRole userRole)
+        public async Task<IActionResult> Edit(Guid id, UserRole userRole)
         {
             if (id != userRole.Id)
             {
@@ -151,14 +149,14 @@ namespace SmartShop.WebAdmin.Controllers
             {
                 _context.UserRoles.Remove(userRole);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool UserRoleExists(Guid id)
         {
-          return (_context.UserRoles?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.UserRoles?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
