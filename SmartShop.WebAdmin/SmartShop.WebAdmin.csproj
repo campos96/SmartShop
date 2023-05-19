@@ -10,4 +10,8 @@
     <ProjectReference Include="..\SmartShop.Core\SmartShop.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\" />
+  </ItemGroup>
+
 </Project>
