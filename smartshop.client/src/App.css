@@ -1,0 +1,25 @@
+body {
+    background-color: aliceblue !important;
+}
+
+.navbar .container-fluid {
+    padding: 1rem 2rem  !important;
+}
+
+.navbar .navbar-nav .nav-item {
+    padding-left: 0.5rem  !important;
+    padding-right: 0.5rem  !important;
+}
+
+.card {
+    box-shadow: 0 0 2rem 0 #c0c6dd !important;
+}
+
+.card .card-body {
+    padding: 2rem !important;
+}
+
+.btn {
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+}
