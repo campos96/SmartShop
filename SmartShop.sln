@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartShop.Core", "SmartShop
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartShop.WebAdmin", "SmartShop.WebAdmin\SmartShop.WebAdmin.csproj", "{8B6FAC5A-B962-44C5-9247-95B77B4C56C0}"
 EndProject
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "smartshop.client", "SmartShop.Client\smartshop.client.esproj", "{8ED41A9D-FDBE-403D-9E19-09EC0526A847}"
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Smartshop.Client", "SmartShop.Client\Smartshop.Client.esproj", "{8ED41A9D-FDBE-403D-9E19-09EC0526A847}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
