@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartShop.WebAdmin", "Smart
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Smartshop.Client", "SmartShop.Client\Smartshop.Client.esproj", "{8ED41A9D-FDBE-403D-9E19-09EC0526A847}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartShop.Api", "SmartShop.Api\SmartShop.Api.csproj", "{4D9C6E39-B624-4C38-ABAD-1E9E7AB18926}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{8ED41A9D-FDBE-403D-9E19-09EC0526A847}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8ED41A9D-FDBE-403D-9E19-09EC0526A847}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8ED41A9D-FDBE-403D-9E19-09EC0526A847}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{4D9C6E39-B624-4C38-ABAD-1E9E7AB18926}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D9C6E39-B624-4C38-ABAD-1E9E7AB18926}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D9C6E39-B624-4C38-ABAD-1E9E7AB18926}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D9C6E39-B624-4C38-ABAD-1E9E7AB18926}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
