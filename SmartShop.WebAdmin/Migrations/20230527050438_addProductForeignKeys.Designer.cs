@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartShop.WebAdmin.Data;
 
@@ -11,9 +12,11 @@ using SmartShop.WebAdmin.Data;
 namespace SmartShop.WebAdmin.Migrations
 {
     [DbContext(typeof(SmartShopContext))]
-    partial class SmartShopContextModelSnapshot : ModelSnapshot
+    [Migration("20230527050438_addProductForeignKeys")]
+    partial class addProductForeignKeys
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -396,19 +399,19 @@ namespace SmartShop.WebAdmin.Migrations
                     b.HasOne("SmartShop.Core.Models.ProductCategory", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("SmartShop.Core.Models.ProductCondition", "Condition")
                         .WithMany()
                         .HasForeignKey("ProductConditionId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("SmartShop.Core.Models.Shop", "Shop")
                         .WithMany()
                         .HasForeignKey("ShopId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Category");
@@ -423,7 +426,7 @@ namespace SmartShop.WebAdmin.Migrations
                     b.HasOne("SmartShop.Core.Models.Shop", "Shop")
                         .WithMany()
                         .HasForeignKey("ShopId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Shop");
@@ -434,7 +437,7 @@ namespace SmartShop.WebAdmin.Migrations
                     b.HasOne("SmartShop.Core.Models.Shop", "Shop")
                         .WithMany()
                         .HasForeignKey("ShopId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Shop");
