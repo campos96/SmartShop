@@ -29,7 +29,12 @@ namespace SmartShop.Api.Controllers
             {
                 return NotFound();
             }
-            return await _context.Products.ToListAsync();
+
+            var products = await _context.Products
+                .Include(p => p.Category)
+                .Include(p => p.Condition)
+                .ToListAsync();
+            return products;
         }
 
         // GET: api/Products/5
