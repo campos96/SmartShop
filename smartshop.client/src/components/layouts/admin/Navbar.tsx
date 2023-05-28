@@ -1,9 +1,9 @@
 function Navbar() {
   return (
-    <nav className="navbar navbar-expand-lg">
+    <nav className="navbar navbar-expand-lg bg-white border-bottom shadow">
       <div className="container-fluid">
-        <a className="navbar-brand" href="/">
-          SmartShop
+        <a className="navbar-brand" href="/admin">
+          SmartShop Admin
         </a>
         <button
           className="navbar-toggler"
@@ -22,17 +22,26 @@ function Navbar() {
         >
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="/">
+              <a className="nav-link active" aria-current="page" href="/admin/home">
                 Home
+              </a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link active" aria-current="page" href="/admin/stock">
+                Stock
               </a>
             </li>
           </ul>
           <div className="d-flex">
-            <a href="/account/login" className="btn btn-primary me-3">
-              Log in
-            </a>
-            <a href="/account/signup" className="btn btn-outline-primary">
-              Sign up
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <li className="nav-item">
+              <a className="nav-link active" aria-current="page" href="/admin">
+                <strong>Cesar Campos</strong>
+              </a>
+            </li>
+          </ul>
+            <a href="/account/logout" className="btn btn-outline-danger">
+              Log out
             </a>
           </div>
         </div>
