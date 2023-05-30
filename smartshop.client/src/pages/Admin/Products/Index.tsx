@@ -1,14 +1,24 @@
 import React, { useState, useEffect } from "react";
 import Table from "./Table";
+import { getProducts } from "../../../services/products.service";
 
 function Products() {
   const [data, setData] = useState(null);
-
   useEffect(() => {
-    fetch("https://localhost:7019/api/products")
-      .then((response) => response.json())
-      .then((json) => setData(json))
-      .catch((error) => console.error(error));
+    getProducts()
+      .then((json) => {
+        setData(json);
+      },
+      (error) => {
+        const _content =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+
+        setData(_content);
+      })
   }, []);
 
   return (
