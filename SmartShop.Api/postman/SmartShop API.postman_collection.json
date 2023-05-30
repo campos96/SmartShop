@@ -1,0 +1,101 @@
+{
+	"info": {
+		"_postman_id": "459c2567-69c4-48d2-8bdd-0d7332496752",
+		"name": "SmartShop API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27166387",
+		"_collection_link": "https://universal-trinity-642049.postman.co/workspace/dev~cdfbed04-9a96-4aae-907d-6b05922329d3/collection/27166387-459c2567-69c4-48d2-8bdd-0d7332496752?action=share&creator=27166387&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "product list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7019/api/products",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7019",
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{AuthToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"var apiUrl = pm.environment.get(\"ApiUrl\");",
+					"var username = pm.environment.get(\"ClientUsername\");",
+					"var password = pm.environment.get(\"ClientPassword\");",
+					"var getToken = true;",
+					"",
+					"if (!pm.environment.get('AccessTokenExpiry') && !pm.environment.get('AuthToken') || pm.environment.get('AuthToken') == \"\") {",
+					"    console.log('Token or expiry date are missing')",
+					"} else if (pm.environment.get('AccessTokenExpiry') <= (new Date()).getTime()) {",
+					"    console.log('Token is expired')",
+					"} else {",
+					"    getToken = false;",
+					"    console.log('Token and expiry date are ok');",
+					"}",
+					"",
+					"if (getToken === true) {",
+					"    pm.sendRequest({",
+					"        url: apiUrl + '/account/login',",
+					"        method: 'POST',",
+					"        body: {",
+					"            mode: 'raw',",
+					"            raw: JSON.stringify({",
+					"                \"username\": username,",
+					"                \"password\": password",
+					"            }),",
+					"            options: {",
+					"                raw: { language: 'json' }",
+					"            }",
+					"        }",
+					"    }, function (error, response) {",
+					"        var responseJson = response.json();",
+					"        var expiryDate = new Date();",
+					"        expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.authenticationResult.expiresIn);",
+					"        pm.environment.set('AccessTokenExpiry', expiryDate.getTime());",
+					"        pm.environment.set(\"AuthToken\", responseJson.authenticationResult.accessToken);",
+					"    });",
+					"}"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
