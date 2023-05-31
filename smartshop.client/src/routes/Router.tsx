@@ -5,6 +5,7 @@ import LayoutAdmin from "../components/layouts/admin/LayoutAdmin";
 
 import Login from "../pages/account/Login";
 import Signup from "../pages/account/Signup";
+import Logout from "../pages/account/Logout";
 
 import AdminHomeIndex from "../pages/Admin/Home/Index";
 
@@ -19,6 +20,7 @@ function AppRouter() {
         <Route path="" element={<Navigate to="login" />} />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
+        <Route path="logout" element={<Logout />} />
       </Route>
       <Route path="/admin" element={<LayoutAdmin />}>
         <Route path="" element={<Navigate to="home" />} />
