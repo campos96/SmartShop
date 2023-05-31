@@ -4,7 +4,7 @@ import { Field, Formik, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 import { login } from "../../services/auth.service";
-import { PATHS } from "../../endpoints";
+import { PATHS } from "../../routes/paths";
 
 type Props = {};
 
@@ -142,7 +142,7 @@ function Login() {
           <div className="col-12 text-center">
             <hr />
             <p>or</p>
-            <a href="/account/signup" className="btn btn-outline-primary">
+            <a href={PATHS.ACCOUNT_SIGNUP} className="btn btn-outline-primary">
               Sign up
             </a>
           </div>

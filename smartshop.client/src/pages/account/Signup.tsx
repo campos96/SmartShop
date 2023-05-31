@@ -1,3 +1,4 @@
+import { PATHS } from "../../routes/paths";
 
 
 function Register() {
@@ -81,7 +82,7 @@ function Register() {
                   </label>
                 </div>
                 <a
-                  href="/account/login"
+                  href={PATHS.ACCOUNT_LOGIN}
                   className="text-secondary float-start mt-2"
                 >
                   Already have an account?

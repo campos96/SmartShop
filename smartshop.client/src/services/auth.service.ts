@@ -1,7 +1,7 @@
-import { API_URL, PATHS } from "../endpoints";
+import { API_URL, ACCOUNT } from "../endpoints";
 
 export const login = (username: string, password: string) => {
-  return fetch(API_URL + PATHS.LOGIN, {
+  return fetch(API_URL + ACCOUNT.LOGIN, {
     method: "POST",
     headers: {
       "Content-Type": "application/json; charset=UTF-8;",

@@ -1,8 +1,10 @@
+import { PATHS } from "../../../routes/paths";
+
 function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg bg-white border-bottom shadow">
       <div className="container-fluid">
-        <a className="navbar-brand" href="/admin">
+        <a className="navbar-brand" href={PATHS.ADMIN}>
           SmartShop Admin
         </a>
         <button
@@ -22,25 +24,37 @@ function Navbar() {
         >
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="/admin/home">
+              <a
+                className="nav-link active"
+                aria-current="page"
+                href={PATHS.ADMIN_HOME}
+              >
                 Home
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="/admin/stock">
+              <a
+                className="nav-link active"
+                aria-current="page"
+                href={PATHS.ADMIN_STOCK}
+              >
                 Stock
               </a>
             </li>
           </ul>
           <div className="d-flex">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="/admin">
-                <strong>Cesar Campos</strong>
-              </a>
-            </li>
-          </ul>
-            <a href="/account/logout" className="btn btn-outline-danger">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+              <li className="nav-item">
+                <a
+                  className="nav-link active"
+                  aria-current="page"
+                  href={PATHS.ADMIN_PROFILE}
+                >
+                  <strong>Cesar Campos</strong>
+                </a>
+              </li>
+            </ul>
+            <a href={PATHS.ACCOUNT_LOGOUT} className="btn btn-outline-danger">
               Log out
             </a>
           </div>

@@ -1,8 +1,11 @@
 export const API_URL = "https://localhost:7019/api";
 
-export enum PATHS {
-  ROOT = "/",
+export enum ACCOUNT {
   LOGIN = "/account/login",
 
-  PRODUCT_LIST = "/products/",
+}
+
+export enum PRODUCT {
+  LIST = "/products/",
+
 }
