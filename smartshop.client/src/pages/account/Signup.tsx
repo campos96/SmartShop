@@ -1,7 +1,12 @@
+import { Navigate } from "react-router-dom";
 import { PATHS } from "../../routes/paths";
+import { authUser } from "../../services/auth.service";
 
 
 function Register() {
+  if (authUser()) {
+    return <Navigate to={PATHS.ADMIN} />;
+  }
   return (
       <div className="row justify-content-center">
         <div className="col-sm-8 col-md-7 col-lg-6 col-xl-5 col-xxl-4">

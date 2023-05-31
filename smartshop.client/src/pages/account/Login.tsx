@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom";
 import { Field, Formik, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-import { login } from "../../services/auth.service";
+import { authUser, login } from "../../services/auth.service";
 import { PATHS } from "../../routes/paths";
 
 function Login() {
@@ -51,6 +51,10 @@ function Login() {
   };
 
   if (authSucceed) {
+    return <Navigate to={PATHS.ADMIN} />;
+  }
+
+  if (authUser()) {
     return <Navigate to={PATHS.ADMIN} />;
   }
 
