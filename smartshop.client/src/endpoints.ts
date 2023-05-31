@@ -10,8 +10,8 @@ export enum PRODUCT {
 
 }
 
-export enum CATEGORIES {
-  LIST = "/categories/",
+export enum PRODUCT_CATEGORIES {
+  LIST = "/productCategories/",
 
 }
 
