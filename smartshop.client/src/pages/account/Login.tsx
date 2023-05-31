@@ -1,17 +1,14 @@
 import { useState } from "react";
-import { NavigateFunction, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { Field, Formik, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 import { login } from "../../services/auth.service";
 import { PATHS } from "../../routes/paths";
 
-type Props = {};
-
 function Login() {
-  let navigate: NavigateFunction = useNavigate();
-
   const [loading, setLoading] = useState<boolean>(false);
+  const [authSucceed, setAuthSucceed] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
 
   const initialValues: {
@@ -31,13 +28,12 @@ function Login() {
     const { username, password } = formValue;
 
     setMessage("");
+
     setLoading(true);
 
     login(username, password).then(
       (response) => {
-        console.log(response);
-        navigate(PATHS.ROOT);
-        window.location.reload();
+        setAuthSucceed(true);
       },
       (error) => {
         const resMessage =
@@ -47,11 +43,16 @@ function Login() {
           error.message ||
           error.toString();
 
+        //log resMessage
         setLoading(false);
-        setMessage(resMessage);
+        setMessage("Invalid username or password...");
       }
     );
   };
+
+  if (authSucceed) {
+    return <Navigate to={PATHS.ADMIN} />;
+  }
 
   return (
     <div className="row justify-content-center">
@@ -77,14 +78,14 @@ function Login() {
                   </label>
                   <ErrorMessage
                     name="username"
-                    component="div"
-                    className="alert alert-danger"
+                    component="span"
+                    className="text-danger"
                   />
                 </div>
                 <div className="form-floating mb-3">
                   <Field
                     name="password"
-                    type="text"
+                    type="password"
                     className="form-control"
                     placeholder="Password:"
                   />
@@ -93,8 +94,8 @@ function Login() {
                   </label>
                   <ErrorMessage
                     name="password"
-                    component="div"
-                    className="alert alert-danger"
+                    component="span"
+                    className="text-danger"
                   />
                 </div>
                 <div className="mb-3">
@@ -113,27 +114,28 @@ function Login() {
                     </label>
                   </div>
                 </div>
-                <a
-                  href="/account/passwordrecovery"
-                  className="text-secondary float-start mt-2"
-                >
-                  Forgot password?
-                </a>
-
-                <button type="submit" className="btn btn-primary float-end">
-                  {loading && (
-                    <span className="spinner-border spinner-border-sm"></span>
-                  )}
-                  <span>Log in</span>
-                </button>
 
                 {message && (
-                  <div className="form-group">
+                  <div className="mb-3">
                     <div className="alert alert-danger" role="alert">
                       {message}
                     </div>
                   </div>
                 )}
+                <div className="mb-3">
+                  <a
+                    href={PATHS.ACCOUNT_PASSWORD_RECOVERY}
+                    className="text-secondary float-start mt-2"
+                  >
+                    Forgot password?
+                  </a>
+                  <button type="submit" className="btn btn-primary float-end">
+                    {loading && (
+                      <span className="spinner-border spinner-border-sm"></span>
+                    )}
+                    <span>Log in</span>
+                  </button>
+                </div>
               </Form>
             </Formik>
           </div>
