@@ -14,13 +14,23 @@ export const login = (username: string, password: string) => {
     .then((response) => response.json())
     .then((json) => {
       if (json.authenticationResult.accessToken) {
-        console.log('logged');
-        localStorage.setItem("user", JSON.stringify(json.authenticationResult));
+        localStorage.setItem("User", JSON.stringify(json.authenticationResult));
       }
       return json.authenticationResult;
     });
 };
 
+export const authUser = () => {
+  const userString = localStorage.getItem("User");
+  var user = null;
+
+  if (userString) {
+    user = JSON.parse(userString);
+  }
+
+  return user;
+};
+
 export const logout = () => {
-  localStorage.removeItem("user");
+  localStorage.removeItem("User");
 };

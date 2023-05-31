@@ -1,5 +1,4 @@
-import { ReactNode } from "react";
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
@@ -11,6 +10,11 @@ import { authUser } from "../../../services/auth.service";
 import { PATHS } from "../../../routes/paths";
 
 function LayoutAdmin() {
+
+  if (!authUser()) {
+    return <Navigate to={PATHS.ACCOUNT_LOGIN} />;
+  }
+
   return (
     <>
       <Navbar />
