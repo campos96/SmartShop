@@ -12,6 +12,8 @@ import AdminHomeIndex from "../pages/Admin/Home/Index";
 import AdminStockIndex from "../pages/Admin/Stock/Index";
 import AdminProductIndex from "../pages/Admin/Products/Index";
 
+import AdminCategoryIndex from "../pages/Admin/Categories/Index"
+
 function AppRouter() {
   return (
     <Routes>
@@ -32,6 +34,10 @@ function AppRouter() {
         <Route path="products">
           <Route path="" element={<Navigate to="index" />} />
           <Route path="index" element={<AdminProductIndex />} />
+        </Route>
+        <Route path="categories">
+          <Route path="" element={<Navigate to="index" />} />
+          <Route path="index" element={<AdminCategoryIndex />} />
         </Route>
       </Route>
     </Routes>

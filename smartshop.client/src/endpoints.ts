@@ -9,3 +9,9 @@ export enum PRODUCT {
   LIST = "/products/",
 
 }
+
+export enum CATEGORIES {
+  LIST = "/categories/",
+
+}
+

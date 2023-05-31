@@ -21,6 +21,12 @@ function SidebarList() {
       >
         Products
       </a>
+      <a
+        href={PATHS.ADMIN_CATEGORIES}
+        className="list-group-item list-group-item-action"
+      >
+        Categories
+      </a>
     </div>
   );
 }

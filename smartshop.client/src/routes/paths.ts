@@ -10,4 +10,5 @@ export enum PATHS {
   ADMIN_PROFILE = "/admin/profile",
   ADMIN_STOCK = "/admin/stock",
   ADMIN_PRODUCTS = "/admin/products",
+  ADMIN_CATEGORIES = "/admin/categories"
 }
