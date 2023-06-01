@@ -7,7 +7,7 @@ type Products = {
 function Table(props: Products) {
   return (
     <div className="table-responsive">
-      <table className="table table-xl table-hover table-striped">
+      <table className="table table-hover">
         <thead>
           <tr>
             <th>Nombre</th>

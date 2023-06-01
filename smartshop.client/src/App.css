@@ -1,27 +1,44 @@
+:root {
+    --main-bg-color: #008080;
+    --main-bg-color-light: #94d3d3;
+    --main-bg-color-lighter: #ddecec;
+}
+
 body {
-    background-color: aliceblue !important;
+    background-color: #f3f4f6 !important;
 }
 
 .navbar .container-fluid {
-    padding: 1rem 1rem  !important;
+    padding: 1rem 1rem !important;
 }
 
 .navbar .navbar-nav .nav-item {
-    padding-left: 0.5rem  !important;
-    padding-right: 0.5rem  !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+    font-weight: bold;
+}
+
+.navbar .navbar-nav .nav-item a {
+    color: #777 !important;
+}
+
+.navbar .navbar-nav .nav-item a:hover {
+    color: #000 !important;
 }
 
 .card {
-    box-shadow: 0 0 2rem 0 #c0c6dd !important;
+    box-shadow: 0 0 1rem 0 #d8dbe9 !important;
+    border-radius: 1rem !important;
+    border-color: white !important;
 }
 
 .card .card-body {
-    padding: 2rem !important;
+    padding: 1.5rem !important;
 }
 
 .card .card-body .card-title {
     font-weight: bold;
-    margin-bottom: 1.5rem;
+    /* margin-bottom: 1.5rem; */
 }
 
 .btn {
@@ -30,9 +47,49 @@ body {
 }
 
 .list-group .list-group-item {
-padding: 0.5rem 0 !important;
+    padding: 0.5rem 0 !important;
 }
 
 .container-fluid {
-    max-width: calc(1920px * 0.975);
+    max-width: calc(1920px * 1);
+}
+
+.navbar-brand {
+    font-weight: bold;
+}
+
+
+.sidebar .card-body {
+    padding: 0rem !important;
+}
+
+.sidebar .card-title {
+    padding: 1.5rem 1.5rem 0 1.5rem;
+}
+
+.sidebar .list-group {
+    margin-bottom: 1rem;
+    border-radius: 0;
+}
+
+.sidebar .list-group .list-group-item {
+    border: none !important;
+    padding: 0.75rem 1.5rem 0.75rem 2.5rem !important;
+    font-weight: bold;
+    color: #777;
+}
+
+.sidebar .list-group .list-group-item svg {
+    margin-top: 5px !important;
+    width: 20px;
+    ;
+}
+
+.sidebar .list-group .list-group-item:hover {
+    color: #000;
+    border-left: 3px solid var(--main-bg-color) !important;
+}
+
+.table thead {
+    background-color: var(--main-bg-color-lighter);
 }

@@ -26,7 +26,7 @@ function Products() {
       <div className="card-body">
         <div className="row">
           <div className="col">
-            <h3 className="card-title float-start">Products</h3>
+            <h4 className="card-title float-start">Products</h4>
             <div className="btn btn-success float-end">Add</div>
           </div>
         </div>
