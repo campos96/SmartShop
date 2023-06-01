@@ -60,6 +60,73 @@
 				}
 			],
 			"id": "23344296-8c9d-41bc-85b1-5c757ddb208b"
+		},
+		{
+			"name": "Account",
+			"item": [
+				{
+					"name": "info",
+					"id": "a8fde304-571f-4da3-87e2-ae1c51c36882",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7019/api/account/info/5f7438ef-3594-4b16-840d-9fc90e14baf8",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7019",
+							"path": [
+								"api",
+								"account",
+								"info",
+								"5f7438ef-3594-4b16-840d-9fc90e14baf8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"id": "64d75e11-508c-44bd-90d8-f9a60e5882f0",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"{{ClientUsername}}\",\r\n    \"password\": \"{{ClientPassword}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7019/api/account/login/",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7019",
+							"path": [
+								"api",
+								"account",
+								"login",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "cf5904a5-bb65-4416-824a-28632b5925fd"
 		}
 	],
 	"auth": {
