@@ -1,6 +1,9 @@
 import { PATHS } from "../../../routes/paths";
+import { authUser } from "../../../services/auth.service";
 
 function Navbar() {
+  var user = authUser();
+
   return (
     <nav className="navbar navbar-expand-lg bg-white border-bottom shadow">
       <div className="container-fluid">
@@ -50,7 +53,7 @@ function Navbar() {
                   aria-current="page"
                   href={PATHS.ADMIN_PROFILE}
                 >
-                  <strong>Cesar Campos</strong>
+                  {user.account.fullName}
                 </a>
               </li>
             </ul>

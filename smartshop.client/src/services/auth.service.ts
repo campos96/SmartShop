@@ -26,8 +26,10 @@ export const authUser = () => {
 
   if (userString) {
     user = JSON.parse(userString);
+    if (!user.account) {
+      return null;
+    }
   }
-
   return user;
 };
 
