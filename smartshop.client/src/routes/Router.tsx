@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 
 import LayoutAuth from "../components/layouts/auth/LayoutAuth";
 import LayoutAdmin from "../components/layouts/admin/LayoutAdmin";
+import LayoutAdminNoSidebar from "../components/layouts/admin/LayoutAdminNoSidebar";
 
 import Login from "../pages/account/Login";
 import Signup from "../pages/account/Signup";
@@ -12,7 +13,9 @@ import AdminHomeIndex from "../pages/Admin/Home/Index";
 import AdminStockIndex from "../pages/Admin/Stock/Index";
 import AdminProductIndex from "../pages/Admin/Products/Index";
 
-import AdminCategoryIndex from "../pages/Admin/ProductCategories/Index"
+import AdminCategoryIndex from "../pages/Admin/ProductCategories/Index";
+
+import NotFound from "../pages/NotFound";
 
 function AppRouter() {
   return (
@@ -39,6 +42,9 @@ function AppRouter() {
           <Route path="" element={<Navigate to="index" />} />
           <Route path="index" element={<AdminCategoryIndex />} />
         </Route>
+      </Route>
+      <Route path="*" element={<LayoutAdminNoSidebar />}>
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   );
