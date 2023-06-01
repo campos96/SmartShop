@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "2b2dc857-91b4-4820-b72d-a04b8d5db047",
+		"_postman_id": "63f30bdc-6e5b-4f7b-985f-13a54247e8e9",
 		"name": "SmartShop API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_uid": "27166387-2b2dc857-91b4-4820-b72d-a04b8d5db047"
+		"_uid": "10391509-63f30bdc-6e5b-4f7b-985f-13a54247e8e9"
 	},
 	"item": [
 		{
@@ -11,7 +11,7 @@
 			"item": [
 				{
 					"name": "product list",
-					"id": "65834eb5-7892-4d96-937c-8215d9aa4696",
+					"id": "e1bdf563-fc3b-4ccb-b5fb-3372ca6e87c3",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -35,7 +35,7 @@
 				},
 				{
 					"name": "product details",
-					"id": "56c7766e-7cdd-4295-9246-6c491000cb43",
+					"id": "6ab84faa-6601-4cfc-885b-ca87c8259f9a",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -59,14 +59,14 @@
 					"response": []
 				}
 			],
-			"id": "23344296-8c9d-41bc-85b1-5c757ddb208b"
+			"id": "36a34f48-9af4-4afc-a186-99a171e76e90"
 		},
 		{
 			"name": "Account",
 			"item": [
 				{
 					"name": "info",
-					"id": "a8fde304-571f-4da3-87e2-ae1c51c36882",
+					"id": "e46a9938-44d8-4cb8-84e7-6592636a5ca4",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -92,7 +92,7 @@
 				},
 				{
 					"name": "login",
-					"id": "64d75e11-508c-44bd-90d8-f9a60e5882f0",
+					"id": "3d1a1de6-be08-45c4-a8af-0af379e4f11c",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -126,7 +126,7 @@
 					"response": []
 				}
 			],
-			"id": "cf5904a5-bb65-4416-824a-28632b5925fd"
+			"id": "d22d8f8e-bc52-4d6d-9fd9-413e5897ea1c"
 		}
 	],
 	"auth": {
@@ -182,7 +182,7 @@
 					"    });",
 					"}"
 				],
-				"id": "1352653a-7026-4338-a287-0ffcb04eff55"
+				"id": "0d0ac6fe-320b-4459-93ed-eaa38cbcd906"
 			}
 		},
 		{
@@ -192,7 +192,7 @@
 				"exec": [
 					""
 				],
-				"id": "d133e786-38ae-4a9c-9f2d-72ae73bcb83e"
+				"id": "a3a54849-db05-4b81-987c-5d48d40e11e8"
 			}
 		}
 	]
