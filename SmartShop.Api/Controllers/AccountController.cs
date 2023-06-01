@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
@@ -27,7 +28,7 @@ namespace SmartShop.Api.Controllers
 
         // GET: api/account/login
         [HttpPost("login")]
-        public async Task<ActionResult<IEnumerable<Product>>> Login(Login login)
+        public async Task<ActionResult> Login(Login login)
         {
             if (_context.Accounts == null)
             {
@@ -72,12 +73,18 @@ namespace SmartShop.Api.Controllers
             {
                 authenticationResult = new
                 {
+                    accessToken = stringToken,
                     expiresIn = tokenDescriptor.Expires.Value.Second,
-                    accessToken = stringToken
+                    account = new AccountInfo
+                    {
+                        Id = account.Id,
+                        UserName = account.UserName,
+                        FirstName = account.FirstName,
+                        LastName = account.LastName,
+                    }
                 }
             };
             return Ok(result);
-
         }
     }
 }
