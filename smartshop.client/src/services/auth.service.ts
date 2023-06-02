@@ -13,24 +13,39 @@ export const login = (username: string, password: string) => {
   })
     .then((response) => response.json())
     .then((json) => {
-      if (json.authenticationResult.accessToken) {
-        localStorage.setItem("User", JSON.stringify(json.authenticationResult));
+      if (json.accessToken) {
+        localStorage.setItem("AccessToken", json.accessToken);
+        localStorage.setItem("UserFullName", json.userFullName);
+        var expirationDate = new Date();
+        expirationDate.setSeconds(expirationDate.getSeconds() + json.expiresIn);
+        localStorage.setItem(
+          "AccessTokenExpiration",
+          expirationDate.getTime().toString()
+        );
       }
-      return json.authenticationResult;
+
+      return json;
     });
 };
 
 export const authUser = () => {
-  const userString = localStorage.getItem("User");
-  var user = null;
+  const accessToken = localStorage.getItem("AccessToken");
+  const accessTokenExpiration = localStorage.getItem("AccessTokenExpiration");
+  const userFullName = localStorage.getItem("UserFullName");
 
-  if (userString) {
-    user = JSON.parse(userString);
-    if (!user.account) {
-      return null;
-    }
+  if (!accessToken || !accessTokenExpiration || !userFullName) {
+    return null;
   }
-  return user;
+
+  if (parseInt(accessTokenExpiration) <= new Date().getTime()) {
+    return null;
+  }
+  
+  return {
+    identity: {
+      name: userFullName,
+    },
+  };
 };
 
 export const logout = () => {

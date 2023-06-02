@@ -53,7 +53,7 @@ function Navbar() {
                   aria-current="page"
                   href={PATHS.ADMIN_PROFILE}
                 >
-                  {user.account.fullName}
+                  {user?.identity.name}
                 </a>
               </li>
             </ul>
