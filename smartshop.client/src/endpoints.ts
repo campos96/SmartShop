@@ -15,3 +15,9 @@ export enum PRODUCT_CATEGORIES {
 
 }
 
+export enum PRODUCT_CONDITIONS {
+  LIST = "/productConditions/",
+
+}
+
+

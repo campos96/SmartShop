@@ -39,6 +39,16 @@ function SidebarMenu() {
           className="float-end"
         />
       </a>
+      <a
+        href={PATHS.ADMIN_PRODUCT_CONDITIONS}
+        className="list-group-item list-group-item-action"
+      >
+        Conditions
+        <FontAwesomeIcon
+          icon={icon({ name: "layer-group" })}
+          className="float-end"
+        />
+      </a>
     </div>
   );
 }

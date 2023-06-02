@@ -15,6 +15,8 @@ import AdminProductIndex from "../pages/Admin/Products/Index";
 
 import AdminCategoryIndex from "../pages/Admin/ProductCategories/Index";
 
+import AdminConditionIndex from "../pages/Admin/ProductConditions/Index";
+
 import NotFound from "../pages/NotFound";
 
 function AppRouter() {
@@ -41,6 +43,10 @@ function AppRouter() {
         <Route path="product-categories">
           <Route path="" element={<Navigate to="index" />} />
           <Route path="index" element={<AdminCategoryIndex />} />
+        </Route>
+        <Route path="product-conditions">
+          <Route path="" element={<Navigate to="index" />} />
+          <Route path="index" element={<AdminConditionIndex />} />
         </Route>
       </Route>
       <Route path="*" element={<LayoutAdminNoSidebar />}>
