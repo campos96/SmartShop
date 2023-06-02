@@ -69,22 +69,13 @@ namespace SmartShop.Api.Controllers
             var jwtToken = tokenHandler.WriteToken(token);
             var stringToken = tokenHandler.WriteToken(token);
 
-            var result = new
+            var authenticationResult = new
             {
-                authenticationResult = new
-                {
-                    accessToken = stringToken,
-                    expiresIn = tokenDescriptor.Expires.Value.Second,
-                    account = new AccountInfo
-                    {
-                        Id = account.Id,
-                        UserName = account.UserName,
-                        FirstName = account.FirstName,
-                        LastName = account.LastName,
-                    }
-                }
+                AccessToken = stringToken,
+                ExpiresIn = (int)(tokenDescriptor.Expires.Value - DateTime.UtcNow).TotalSeconds,
+                UserFullName = account.FullName
             };
-            return Ok(result);
+            return Ok(authenticationResult);
         }
     }
 }

@@ -36,5 +36,7 @@ namespace SmartShop.Core.Models
 
         public DateTime? ResetPasswordExpiration { get; set; }
 
+        public string FullName => $"{FirstName} {LastName}";
+
     }
 }
