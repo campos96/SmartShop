@@ -143,6 +143,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
+				"id": "cc10ea40-ab1c-4a86-a4e4-a2d8d6c1cbef",
 				"type": "text/javascript",
 				"exec": [
 					"var apiUrl = pm.environment.get(\"ApiUrl\");",
@@ -150,9 +151,9 @@
 					"var password = pm.environment.get(\"ClientPassword\");",
 					"var getToken = true;",
 					"",
-					"if (!pm.environment.get('AccessTokenExpiry') && !pm.environment.get('AuthToken') || pm.environment.get('AuthToken') == \"\") {",
+					"if (!pm.environment.get('AuthTokenExpiration') && !pm.environment.get('AuthToken') || pm.environment.get('AuthToken') == \"\") {",
 					"    console.log('Token or expiry date are missing')",
-					"} else if (pm.environment.get('AccessTokenExpiry') <= (new Date()).getTime()) {",
+					"} else if (pm.environment.get('AuthTokenExpiration') <= (new Date()).getTime()) {",
 					"    console.log('Token is expired')",
 					"} else {",
 					"    getToken = false;",
@@ -174,25 +175,24 @@
 					"            }",
 					"        }",
 					"    }, function (error, response) {",
-					"        var responseJson = response.json();",
+					"        var authenticationResult = response.json();",
 					"        var expiryDate = new Date();",
-					"        expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.authenticationResult.expiresIn);",
-					"        pm.environment.set('AccessTokenExpiry', expiryDate.getTime());",
-					"        pm.environment.set(\"AuthToken\", responseJson.authenticationResult.accessToken);",
+					"        expiryDate.setSeconds(expiryDate.getSeconds() + authenticationResult.expiresIn);",
+					"        pm.environment.set('AuthTokenExpiration', expiryDate.getTime());",
+					"        pm.environment.set(\"AuthToken\", authenticationResult.accessToken);",
 					"    });",
 					"}"
-				],
-				"id": "0d0ac6fe-320b-4459-93ed-eaa38cbcd906"
+				]
 			}
 		},
 		{
 			"listen": "test",
 			"script": {
+				"id": "056829b8-ca22-47f2-8e61-66640587a8b6",
 				"type": "text/javascript",
 				"exec": [
 					""
-				],
-				"id": "a3a54849-db05-4b81-987c-5d48d40e11e8"
+				]
 			}
 		}
 	]
