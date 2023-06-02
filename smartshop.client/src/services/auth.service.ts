@@ -49,5 +49,7 @@ export const authUser = () => {
 };
 
 export const logout = () => {
-  localStorage.removeItem("User");
+  localStorage.removeItem("AccessToken");
+  localStorage.removeItem("AccessTokenExpiration");
+  localStorage.removeItem("UserFullName");
 };
