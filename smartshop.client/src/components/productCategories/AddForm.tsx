@@ -8,7 +8,7 @@ import {
   FormGroup,
   FormLabel,
 } from "react-bootstrap";
-import { Category } from "../../types/Category";
+import { ProductCategory } from "../../types/ProductCategory";
 import { addProductCategory } from "../../services/product-categories.service";
 import { selectedShop } from "../../services/auth.service";
 
@@ -16,7 +16,7 @@ function AddForm({ onSuccess = () => {} }) {
   const shop = selectedShop();
   const [loading, setLoading] = useState<boolean>(false);
   const [data, setData] = useState(null);
-  const [productCategory, setNewProductCategory] = useState<Category>({
+  const [productCategory, setNewProductCategory] = useState<ProductCategory>({
     id: "",
     shopId: shop.id,
     name: "",

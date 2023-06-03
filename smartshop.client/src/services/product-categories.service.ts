@@ -1,5 +1,5 @@
 import { API_URL, PRODUCT_CATEGORIES } from "../endpoints";
-import { Category } from "../types/Category";
+import { ProductCategory } from "../types/ProductCategory";
 import AuthHeader from "./auth-header";
 
 export const getProductCategories = () => {
@@ -9,7 +9,7 @@ export const getProductCategories = () => {
   }).then((response) => response.json());
 };
 
-export const addProductCategory = (productCategory: Category) => {
+export const addProductCategory = (productCategory: ProductCategory) => {
   return fetch(API_URL + PRODUCT_CATEGORIES.ADD, {
     method: "POST",
     headers: {

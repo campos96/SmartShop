@@ -1,5 +1,5 @@
-import { Category } from "./Category";
-import { Condition } from "./Condition";
+import { ProductCategory } from "./ProductCategory";
+import { ProductCondition } from "./ProductCondition";
 
 export type Product = {
   id: string;
@@ -11,6 +11,6 @@ export type Product = {
   productConditionId: string;
   created: Date;
   updated: Date;
-  category: Category;
-  condition: Condition;
+  category: ProductCategory;
+  condition: ProductCondition;
 };

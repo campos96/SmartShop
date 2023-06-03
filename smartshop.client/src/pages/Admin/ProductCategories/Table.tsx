@@ -1,14 +1,13 @@
 import { Button } from "react-bootstrap";
-import { Category } from "../../../types/Category";
+import { ProductCategory } from "../../../types/ProductCategory";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
-import { useState } from "react";
 
-type Categories = {
-  list: Category[];
+type ProductCategories = {
+  list: ProductCategory[];
 };
 
-function Table(props: Categories) {
+function Table(props: ProductCategories) {
   return (
     <div className="table-responsive">
       <table className="table table-xl table-hover table-striped">

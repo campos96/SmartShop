@@ -1,10 +1,10 @@
-import { Condition } from "../../../types/Condition";
+import { ProductCondition } from "../../../types/ProductCondition";
 
-type Conditions = {
-  list: Condition[];
+type ProductConditions = {
+  list: ProductCondition[];
 };
 
-function Table(props: Conditions) {
+function Table(props: ProductConditions) {
   return (
     <div className="table-responsive">
       <table className="table table-xl table-hover table-striped">

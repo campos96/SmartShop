@@ -1,7 +1,5 @@
-export type Category = {
+export type ProductCondition = {
   id: string;
-  shopId: string,
   name: string;
   description: string;
 };
-
