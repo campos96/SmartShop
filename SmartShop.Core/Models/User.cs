@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SmartShop.Core.Models
 {
@@ -19,8 +21,12 @@ namespace SmartShop.Core.Models
         [Required]
         public bool IsLocked { get; set; }
 
-        public IEnumerable<UserRole>? Roles { get; set; }
+        [ForeignKey(nameof(AccountId))]
+        public Account? Account { get; set; }
 
+        [ForeignKey(nameof(ShopId))]
         public Shop? Shop { get; set; }
+
+        public virtual IEnumerable<UserRole>? Roles { get; set; }
     }
 }

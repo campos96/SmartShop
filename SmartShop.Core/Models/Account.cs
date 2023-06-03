@@ -38,5 +38,7 @@ namespace SmartShop.Core.Models
 
         public string FullName => $"{FirstName} {LastName}";
 
+        public virtual ICollection<User>? Users { get; set; }
+
     }
 }

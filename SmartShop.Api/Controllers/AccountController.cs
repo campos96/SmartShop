@@ -36,12 +36,19 @@ namespace SmartShop.Api.Controllers
             }
 
             var account = await _context.Accounts
+                .Include(a => a.Users!)
+                .ThenInclude(u => u.Shop)
                 .Where(a => a.UserName == login.Username && a.Password == login.Password)
                 .FirstOrDefaultAsync();
 
             if (account == null)
             {
                 return Unauthorized();
+            }
+
+            if (account.Users == null || account.Users.Count() == 0)
+            {
+                return Unauthorized("No User or Shop assigned to account.");
             }
 
             var issuer = _configuration.GetValue<string>("Jwt:Issuer");
@@ -73,7 +80,8 @@ namespace SmartShop.Api.Controllers
             {
                 AccessToken = stringToken,
                 ExpiresIn = (int)(tokenDescriptor.Expires.Value - DateTime.UtcNow).TotalSeconds,
-                UserFullName = account.FullName
+                UserFullName = account.FullName,
+                Shop = account.Users.First().Shop
             };
             return Ok(authenticationResult);
         }
