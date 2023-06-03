@@ -46,6 +46,11 @@ body {
     padding-right: 2rem !important;
 }
 
+.btn.btn-sm {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+}
+
 .list-group .list-group-item {
     padding: 0.5rem 0 !important;
 }
@@ -92,4 +97,12 @@ body {
 
 .table thead {
     background-color: var(--main-bg-color-lighter);
+}
+
+form .btn .spinner-border {
+    margin-right: 0.5rem;
+}
+
+.btn.has-icon svg {
+    margin-right: 0.25rem;
 }

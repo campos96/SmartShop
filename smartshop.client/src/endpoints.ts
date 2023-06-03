@@ -12,7 +12,7 @@ export enum PRODUCT {
 
 export enum PRODUCT_CATEGORIES {
   LIST = "/productCategories/",
-
+  ADD = "/productCategories/",
 }
 
 export enum PRODUCT_CONDITIONS {

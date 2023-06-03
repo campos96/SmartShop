@@ -1,4 +1,8 @@
+import { Button } from "react-bootstrap";
 import { Category } from "../../../types/Category";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { useState } from "react";
 
 type Categories = {
   list: Category[];
@@ -12,7 +16,7 @@ function Table(props: Categories) {
           <tr>
             <th>Nombre</th>
             <th>Descripcion</th>
-            <th>Opciones</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -20,38 +24,32 @@ function Table(props: Categories) {
             <tr key={category.id}>
               <td>{category.name}</td>
               <td>{category.description}</td>
-              {/* <td>{category.model}</td>
-              <td>{category.brand}</td>
-              <td>{category.sku}</td>
-              <td>{category.category.name}</td>
-              <td>{category.condition.name}</td>
-              <td>{new Date(category.created).toLocaleString("en-us")}</td>
-              <td>{new Date(category.updated).toLocaleString("es-mx")}</td> */}
               <td>
-                <div className="dropdown">
-                  <button
-                    className="btn btn-outline-secondary btn-sm dropdown-toggle"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  ></button>
-                  <ul className="dropdown-menu">
-                    <li>
-                      <a className="dropdown-item" href="details">
-                        Details
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="edit">
-                        Edit
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="delete">
-                        Delete
-                      </a>
-                    </li>
-                  </ul>
+                <div className="btn-group float-end">
+                  <Button
+                    variant="outline-secondary"
+                    size="sm"
+                    className="has-icon me-1"
+                  >
+                    <FontAwesomeIcon icon={icon({ name: "eye" })} />
+                    Details
+                  </Button>
+                  <Button
+                    variant="outline-warning"
+                    size="sm"
+                    className="has-icon me-1"
+                  >
+                    <FontAwesomeIcon icon={icon({ name: "pencil" })} />
+                    Edit
+                  </Button>
+                  <Button
+                    variant="outline-danger"
+                    size="sm"
+                    className="has-icon me-1"
+                  >
+                    <FontAwesomeIcon icon={icon({ name: "trash-can" })} />
+                    Delete
+                  </Button>
                 </div>
               </td>
             </tr>

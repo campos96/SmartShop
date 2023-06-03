@@ -1,10 +1,10 @@
 import { Navigate } from "react-router-dom";
 import { PATHS } from "../../routes/paths";
-import { authUser } from "../../services/auth.service";
+import { authoridedUser } from "../../services/auth.service";
 
 
 function Register() {
-  if (authUser()) {
+  if (authoridedUser()) {
     return <Navigate to={PATHS.ADMIN} />;
   }
   return (

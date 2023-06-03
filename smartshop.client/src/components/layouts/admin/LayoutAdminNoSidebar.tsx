@@ -6,11 +6,11 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import Sidebar from "./Sidebar";
-import { authUser } from "../../../services/auth.service";
+import { authoridedUser } from "../../../services/auth.service";
 import { PATHS } from "../../../routes/paths";
 
 function LayoutAdminNoSidebar() {
-  if (!authUser()) {
+  if (!authoridedUser()) {
     return <Navigate to={PATHS.ACCOUNT_LOGIN} />;
   }
 

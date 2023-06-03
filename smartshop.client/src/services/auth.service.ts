@@ -16,6 +16,7 @@ export const login = (username: string, password: string) => {
       if (json.accessToken) {
         localStorage.setItem("AccessToken", json.accessToken);
         localStorage.setItem("UserFullName", json.userFullName);
+        localStorage.setItem("Shop", JSON.stringify(json.shop));
         var expirationDate = new Date();
         expirationDate.setSeconds(expirationDate.getSeconds() + json.expiresIn);
         localStorage.setItem(
@@ -28,7 +29,7 @@ export const login = (username: string, password: string) => {
     });
 };
 
-export const authUser = () => {
+export const authoridedUser = () => {
   const accessToken = localStorage.getItem("AccessToken");
   const accessTokenExpiration = localStorage.getItem("AccessTokenExpiration");
   const userFullName = localStorage.getItem("UserFullName");
@@ -40,7 +41,7 @@ export const authUser = () => {
   if (parseInt(accessTokenExpiration) <= new Date().getTime()) {
     return null;
   }
-  
+
   return {
     identity: {
       name: userFullName,
@@ -48,8 +49,19 @@ export const authUser = () => {
   };
 };
 
+export const selectedShop = () => {
+  const shopString = localStorage.getItem("Shop");
+
+  if (!shopString) {
+    return null;
+  }
+
+  return JSON.parse(shopString);
+};
+
 export const logout = () => {
   localStorage.removeItem("AccessToken");
   localStorage.removeItem("AccessTokenExpiration");
   localStorage.removeItem("UserFullName");
+  localStorage.removeItem("Shop");
 };
