@@ -49,6 +49,8 @@ namespace SmartShop.Core.Models
         [ForeignKey(nameof(ProductConditionId))]
         public ProductCondition? Condition { get; set; }
 
+        public virtual ProductDetails? Details { get; set; }
+
         public virtual ICollection<Stock>? Stock { get; set; }
     }
 }

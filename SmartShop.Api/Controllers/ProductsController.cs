@@ -47,7 +47,12 @@ namespace SmartShop.Api.Controllers
             {
                 return NotFound();
             }
-            var product = await _context.Products.FindAsync(id);
+            var product = await _context.Products
+                .Include(p => p.Details)
+                .Include(p => p.Category)
+                .Include(p => p.Condition)
+                .Where(p => p.Id == id)
+                .FirstOrDefaultAsync();
 
             if (product == null)
             {
