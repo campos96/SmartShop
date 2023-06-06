@@ -53,7 +53,7 @@ function ProductCategories() {
             </div>
           </div>
           <hr />
-          {data ? <Table list={data} /> : "Loading..."}
+          {data ? <Table list={data} onSuccess={getData} /> : "Loading..."}
         </div>
       </div>
       <Modal show={showModal} onHide={handleHideModal}>

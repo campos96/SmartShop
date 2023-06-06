@@ -9,6 +9,13 @@ export const getProductCategories = () => {
   }).then((response) => response.json());
 };
 
+export const getProductCategory = (id: string) => {
+  return fetch(API_URL + PRODUCT_CATEGORIES.DETAILS + id, {
+    method: "GET",
+    headers: AuthHeader(),
+  }).then((response) => response.json());
+};
+
 export const addProductCategory = (productCategory: ProductCategory) => {
   return fetch(API_URL + PRODUCT_CATEGORIES.ADD, {
     method: "POST",
@@ -22,6 +29,16 @@ export const addProductCategory = (productCategory: ProductCategory) => {
       description: productCategory.description,
     }),
   }).then((response) => response.json());
+};
+
+export const deleteProductCategory = (id: string) => {
+  return fetch(API_URL + PRODUCT_CATEGORIES.DELETE + id, {
+    method: "DELETE",
+    headers: {
+      Authorization: AuthHeader().Authorization,
+      "Content-Type": "application/json; charset=UTF-8;",
+    },
+  }).then((response) => response);
 };
 
 export default getProductCategories;

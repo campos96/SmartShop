@@ -13,6 +13,8 @@ export enum PRODUCT {
 export enum PRODUCT_CATEGORIES {
   LIST = "/productCategories/",
   ADD = "/productCategories/",
+  DELETE = "/productCategories/",
+  DETAILS = "/productCategories/",
 }
 
 export enum PRODUCT_CONDITIONS {

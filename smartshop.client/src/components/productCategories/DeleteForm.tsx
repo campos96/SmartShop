@@ -1,7 +1,8 @@
 import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import {
+  Alert,
   Button,
   Form,
   FormControl,
@@ -9,38 +10,46 @@ import {
   FormLabel,
 } from "react-bootstrap";
 import { ProductCategory } from "../../types/ProductCategory";
-import { addProductCategory } from "../../services/product-categories.service";
-import { selectedShop } from "../../services/auth.service";
+import {
+  deleteProductCategory,
+  getProductCategory,
+} from "../../services/product-categories.service";
 
-function AddForm({ onSuccess = () => {} }) {
-  const shop = selectedShop();
+type DeleteRequest = {
+  productCategoryId: string;
+  onSuccess: () => void;
+};
+
+function AddForm({ productCategoryId, onSuccess }: DeleteRequest) {
   const [loading, setLoading] = useState<boolean>(false);
-  const [data, setData] = useState(null);
-  const [productCategory, setNewProductCategory] = useState<ProductCategory>({
-    id: "",
-    shopId: shop.id,
-    name: "",
-    description: "",
-  });
+  const [productCategory, setProductCategory] = useState<ProductCategory>();
 
-  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNewProductCategory({
-      ...productCategory,
-      [e.target.name]: e.target.value,
-    });
-  };
+  useEffect(() => {
+    getProductCategory(productCategoryId).then(
+      (json) => {
+        setProductCategory(json);
+      },
+      (error) => {
+        const _content =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
 
-  const { shopId, name, description } = productCategory;
+        console.error(_content);
+      }
+    );
+  }, []);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
     setLoading(true);
 
-    addProductCategory(productCategory)
+    deleteProductCategory(productCategoryId)
       .then(
-        (json) => {
-          setData(json);
+        () => {
           onSuccess();
         },
         (error) => {
@@ -50,7 +59,8 @@ function AddForm({ onSuccess = () => {} }) {
               error.response.data.message) ||
             error.message ||
             error.toString();
-          setData(_content);
+            
+          console.error(_content);
         }
       )
       .then(() => {
@@ -58,17 +68,25 @@ function AddForm({ onSuccess = () => {} }) {
       });
   };
 
+  if (productCategory == null) {
+    return <div>Not Found</div>;
+  }
+
   return (
     <Form onSubmit={handleSubmit}>
-      <FormControl type="hidden" name="shopId" value={shopId} />
+      <Alert variant="danger">
+        <strong>Attention!</strong> This change is permanent...
+      </Alert>
+      <FormControl type="hidden" name="shopId" value={productCategory.shopId} />
       <FormGroup className="form-floating mb-3">
         <FormControl
           type="text"
           name="name"
-          value={name}
-          onChange={onInputChange}
+          value={productCategory.name}
+          // onChange={onInputChange}
           placeholder="Name"
           required
+          disabled
         />
         <FormLabel htmlFor="name">Name</FormLabel>
       </FormGroup>
@@ -77,21 +95,22 @@ function AddForm({ onSuccess = () => {} }) {
           as="textarea"
           style={{ height: 150 }}
           name="description"
-          value={description}
-          onChange={onInputChange}
+          value={productCategory.description}
+          // onChange={onInputChange}
           placeholder="Description"
+          disabled
         />
         <FormLabel htmlFor="description">Description</FormLabel>
       </FormGroup>
       <Button
-        variant="success"
+        variant="danger"
         type="submit"
         className="float-end has-icon"
         disabled={loading}
       >
         {loading && <span className="spinner-border spinner-border-sm"></span>}
-        {!loading && <FontAwesomeIcon icon={icon({ name: "plus" })} />}
-        Add
+        {!loading && <FontAwesomeIcon icon={icon({ name: "trash-can" })} />}
+        Confirm Delete
       </Button>
     </Form>
   );
