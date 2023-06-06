@@ -15,6 +15,7 @@ function ProductCategories() {
   };
 
   const getData = () => {
+    setData(null);
     getProductCategories().then(
       (json) => {
         setData(json);

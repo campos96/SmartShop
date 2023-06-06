@@ -31,6 +31,25 @@ export const addProductCategory = (productCategory: ProductCategory) => {
   }).then((response) => response.json());
 };
 
+export const updateProductCategory = (
+  id: string,
+  productCategory: ProductCategory
+) => {
+  return fetch(API_URL + PRODUCT_CATEGORIES.UPDATE + id, {
+    method: "PUT",
+    headers: {
+      Authorization: AuthHeader().Authorization,
+      "Content-Type": "application/json; charset=UTF-8;",
+    },
+    body: JSON.stringify({
+      id: productCategory.id,
+      shopId: productCategory.shopId,
+      name: productCategory.name,
+      description: productCategory.description,
+    }),
+  }).then((response) => response);
+};
+
 export const deleteProductCategory = (id: string) => {
   return fetch(API_URL + PRODUCT_CATEGORIES.DELETE + id, {
     method: "DELETE",

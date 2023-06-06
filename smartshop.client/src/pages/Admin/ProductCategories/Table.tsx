@@ -1,9 +1,10 @@
-import { Button, Modal, ModalBody, ModalHeader } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { ProductCategory } from "../../../types/ProductCategory";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { useState } from "react";
-import DeleteForm from "../../../components/productCategories/DeleteForm";
+import ActionModal from "../../../components/productCategories/ActionModal";
+import { ActionModalType } from "../../../types/ActionModalType";
 
 type ProductCategoriesTable = {
   list: ProductCategory[];
@@ -11,16 +12,20 @@ type ProductCategoriesTable = {
 };
 
 function Table({ list, onSuccess }: ProductCategoriesTable) {
-  const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+  const [actionModalType, setActionModalType] = useState<ActionModalType>();
+  const [showModal, setShowModal] = useState<boolean>(false);
   const [selectedRowId, setSelectedRowId] = useState<string>("");
-  const handleShowDeleteModal = (id: string) => {
-    setSelectedRowId(id);
-    setShowDeleteModal(true);
+  const showActionModal = (type: ActionModalType, id?: string) => {
+    if (type != null) {
+      setActionModalType(type);
+      setSelectedRowId(id != null ? id : "");
+      setShowModal(true);
+    }
   };
 
-  const handleHideDeleteModal = () => {
+  const hideActionModal = () => {
     onSuccess();
-    setShowDeleteModal(false);
+    setShowModal(false);
   };
 
   return (
@@ -42,6 +47,9 @@ function Table({ list, onSuccess }: ProductCategoriesTable) {
                 <td>
                   <div className="btn-group float-end">
                     <Button
+                      onClick={() =>
+                        showActionModal(ActionModalType.Details, category.id)
+                      }
                       variant="outline-secondary"
                       size="sm"
                       className="has-icon me-1"
@@ -50,6 +58,9 @@ function Table({ list, onSuccess }: ProductCategoriesTable) {
                       Details
                     </Button>
                     <Button
+                      onClick={() =>
+                        showActionModal(ActionModalType.Edit, category.id)
+                      }
                       variant="outline-warning"
                       size="sm"
                       className="has-icon me-1"
@@ -58,7 +69,9 @@ function Table({ list, onSuccess }: ProductCategoriesTable) {
                       Edit
                     </Button>
                     <Button
-                      onClick={() => handleShowDeleteModal(category.id)}
+                      onClick={() =>
+                        showActionModal(ActionModalType.Delete, category.id)
+                      }
                       variant="outline-danger"
                       size="sm"
                       className="has-icon me-1"
@@ -73,15 +86,13 @@ function Table({ list, onSuccess }: ProductCategoriesTable) {
           </tbody>
         </table>
       </div>
-      <Modal show={showDeleteModal} onHide={handleHideDeleteModal}>
-        <ModalHeader closeButton>Add product category</ModalHeader>
-        <ModalBody>
-          <DeleteForm
-            productCategoryId={selectedRowId}
-            onSuccess={handleHideDeleteModal}
-          />
-        </ModalBody>
-      </Modal>
+
+      <ActionModal
+        type={actionModalType}
+        showModal={showModal}
+        onHideModal={hideActionModal}
+        selectedRowId={selectedRowId}
+      />
     </>
   );
 }

@@ -2,7 +2,6 @@ import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { FormEvent, useEffect, useState } from "react";
 import {
-  Alert,
   Button,
   Form,
   FormControl,
@@ -11,17 +10,17 @@ import {
 } from "react-bootstrap";
 import { ProductCategory } from "../../types/ProductCategory";
 import {
-  deleteProductCategory,
   getProductCategory,
+  updateProductCategory,
 } from "../../services/product-categories.service";
 import Loader from "../Modal/Loader";
 
-type DeleteRequest = {
+type EditRequest = {
   productCategoryId: string;
   onSuccess: () => void;
 };
 
-function DeleteForm({ productCategoryId, onSuccess }: DeleteRequest) {
+function EditForm({ productCategoryId, onSuccess }: EditRequest) {
   const [loading, setLoading] = useState<boolean>(false);
   const [productCategory, setProductCategory] = useState<ProductCategory>();
 
@@ -43,29 +42,40 @@ function DeleteForm({ productCategoryId, onSuccess }: DeleteRequest) {
     );
   }, []);
 
+  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (productCategory != null) {
+      setProductCategory({
+        ...productCategory,
+        [e.target.name]: e.target.value,
+      });
+    }
+  };
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
-    deleteProductCategory(productCategoryId)
-      .then(
-        () => {
-          onSuccess();
-        },
-        (error) => {
-          const _content =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
+    if (productCategory != null) {
+      updateProductCategory(productCategoryId, productCategory)
+        .then(
+          () => {
+            onSuccess();
+          },
+          (error) => {
+            const _content =
+              (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+              error.message ||
+              error.toString();
 
-          console.error(_content);
-        }
-      )
-      .then(() => {
-        setLoading(false);
-      });
+            console.error(_content);
+          }
+        )
+        .then(() => {
+          setLoading(false);
+        });
+    }
   };
 
   if (productCategory == null) {
@@ -74,18 +84,19 @@ function DeleteForm({ productCategoryId, onSuccess }: DeleteRequest) {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Alert variant="danger">
-        <strong>Attention!</strong> This change is permanent...
-      </Alert>
-      <FormControl type="hidden" name="shopId" value={productCategory.shopId} />
+      <FormControl
+        type="hidden"
+        name="shopId"
+        value={productCategory!.shopId}
+      />
       <FormGroup className="form-floating mb-3">
         <FormControl
           type="text"
           name="name"
-          value={productCategory.name}
+          value={productCategory!.name}
+          onChange={onInputChange}
           placeholder="Name"
           required
-          disabled
         />
         <FormLabel htmlFor="name">Name</FormLabel>
       </FormGroup>
@@ -94,24 +105,24 @@ function DeleteForm({ productCategoryId, onSuccess }: DeleteRequest) {
           as="textarea"
           style={{ height: 150 }}
           name="description"
-          value={productCategory.description}
+          value={productCategory!.description}
+          onChange={onInputChange}
           placeholder="Description"
-          disabled
         />
         <FormLabel htmlFor="description">Description</FormLabel>
       </FormGroup>
       <Button
-        variant="danger"
+        variant="success"
         type="submit"
         className="float-end has-icon"
         disabled={loading}
       >
         {loading && <span className="spinner-border spinner-border-sm"></span>}
-        {!loading && <FontAwesomeIcon icon={icon({ name: "trash-can" })} />}
-        Confirm Delete
+        {!loading && <FontAwesomeIcon icon={icon({ name: "save" })} />}
+        Save changes
       </Button>
     </Form>
   );
 }
 
-export default DeleteForm;
+export default EditForm;

@@ -47,8 +47,8 @@ body {
 }
 
 .btn.btn-sm {
-    padding-left: 1rem !important;
-    padding-right: 1rem !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
 }
 
 .list-group .list-group-item {
@@ -105,4 +105,8 @@ form .btn .spinner-border {
 
 .btn.has-icon svg {
     margin-right: 0.25rem;
+}
+
+.form-floating .form-label::after {
+    opacity: 0 !important;
 }
