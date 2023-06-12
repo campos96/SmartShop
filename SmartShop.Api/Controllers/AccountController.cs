@@ -1,8 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
 using Microsoft.IdentityModel.Tokens;
 using SmartShop.Api.Data;
 using SmartShop.Api.Models;
@@ -24,6 +21,46 @@ namespace SmartShop.Api.Controllers
         {
             _context = context;
             _configuration = configuration;
+        }
+
+        [HttpPost("signup")]
+        public async Task<IActionResult> Signup(Signup signup)
+        {
+            var accounts = await _context.Accounts
+                .Where(a => a.UserName == signup.UserName || a.Email == signup.Email)
+                .ToListAsync();
+
+            if (accounts.Any(a => a.UserName == signup.UserName))
+            {
+                return ApiResult.BadRequest(errors: new
+                {
+                    UserName = new[] { "Username already exist." }
+                });
+            }
+
+            if (accounts.Any(a => a.Email == signup.Email))
+            {
+                return ApiResult.BadRequest(errors: new
+                {
+                    Email = new[] { "Email already registered." }
+                });
+            }
+
+            var account = new Account
+            {
+                Id = Guid.NewGuid(),
+                UserName = signup.UserName,
+                FirstName = signup.FirstName,
+                LastName = signup.LastName,
+                Email = signup.Email,
+                Password = signup.Password,
+                IsLocked = false,
+                Created = DateTime.Now
+            };
+
+            _context.Accounts.Add(account);
+            await _context.SaveChangesAsync();
+            return ApiResult.Ok();
         }
 
         // GET: api/account/login
