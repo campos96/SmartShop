@@ -43,12 +43,18 @@ namespace SmartShop.Api.Controllers
 
             if (account == null)
             {
-                return Unauthorized();
+                return ApiResult.Unauthorized(errors: new
+                {
+                    userName = new[] { "Invalid username or password." }
+                });
             }
 
             if (account.Users == null || account.Users.Count() == 0)
             {
-                return Unauthorized("No User or Shop assigned to account.");
+                return ApiResult.Unauthorized(errors: new
+                {
+                    userName = new[] { "No user or shop assigned" }
+                });
             }
 
             var issuer = _configuration.GetValue<string>("Jwt:Issuer");
@@ -83,7 +89,8 @@ namespace SmartShop.Api.Controllers
                 UserFullName = account.FullName,
                 Shop = account.Users.First().Shop
             };
-            return Ok(authenticationResult);
+
+            return ApiResult.Ok(payload: authenticationResult);
         }
     }
 }
