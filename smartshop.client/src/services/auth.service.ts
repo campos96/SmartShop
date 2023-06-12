@@ -1,7 +1,7 @@
 import { API_URL, ACCOUNT } from "../endpoints";
 
 export const login = (username: string, password: string) => {
-  return fetch(API_URL + ACCOUNT.LOGIN, {
+  return request(API_URL + ACCOUNT.LOGIN, {
     method: "POST",
     headers: {
       "Content-Type": "application/json; charset=UTF-8;",
@@ -10,22 +10,22 @@ export const login = (username: string, password: string) => {
       username,
       password,
     }),
-  })
-    .then((response) => response.json())
-    .then((json) => {
-      if (json.accessToken) {
-        localStorage.setItem("AccessToken", json.accessToken);
-        localStorage.setItem("UserFullName", json.userFullName);
-        localStorage.setItem("Shop", JSON.stringify(json.shop));
+  }).then((response) => {
+    var authResult = response.payload as AuthenticationResult;
+    if (authResult) {
+      localStorage.setItem("AccessToken", authResult.accessToken);
+      localStorage.setItem("UserFullName", authResult.userFullName);
+      localStorage.setItem("Shop", JSON.stringify(authResult.shop));
         var expirationDate = new Date();
-        expirationDate.setSeconds(expirationDate.getSeconds() + json.expiresIn);
+      expirationDate.setSeconds(
+        expirationDate.getSeconds() + authResult.expiresIn
+      );
         localStorage.setItem(
           "AccessTokenExpiration",
           expirationDate.getTime().toString()
         );
       }
-
-      return json;
+    return response;
     });
 };
 
