@@ -1,16 +1,12 @@
 import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { FormEvent, useState } from "react";
-import {
-  Button,
-  Form,
-  FormControl,
-  FormGroup,
-  FormLabel,
-} from "react-bootstrap";
+import React, { FormEvent, ReactNode, useState } from "react";
+import { Button, FormControl, FormGroup, FormLabel, Form } from "react-bootstrap";
 import { ProductCategory } from "../../types/ProductCategory";
 import { addProductCategory } from "../../services/product-categories.service";
 import { selectedShop } from "../../services/auth.service";
+import { Field, Formik, FormikProps, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
 function AddForm({ onSuccess = () => {} }) {
   const shop = selectedShop();
@@ -23,6 +19,24 @@ function AddForm({ onSuccess = () => {} }) {
     description: "",
   });
 
+  const initialValues: {
+    // id: string;
+    shopId: string;
+    name: string;
+    description: string;
+  } = {
+    // id: "",
+    shopId: shop.id,
+    name: "",
+    description: "",
+  };
+
+  const schema = Yup.object().shape({
+    shopId: Yup.string().required(),
+    name: Yup.string().required(),
+    description: Yup.string().required(),
+  });
+
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewProductCategory({
       ...productCategory,
@@ -32,8 +46,8 @@ function AddForm({ onSuccess = () => {} }) {
 
   const { shopId, name, description } = productCategory;
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = () => {
+    // e.preventDefault();
 
     setLoading(true);
 
@@ -59,41 +73,61 @@ function AddForm({ onSuccess = () => {} }) {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <FormControl type="hidden" name="shopId" value={shopId} />
-      <FormGroup className="form-floating mb-3">
-        <FormControl
-          type="text"
-          name="name"
-          value={name}
-          onChange={onInputChange}
-          placeholder="Name"
-          required
-        />
-        <FormLabel htmlFor="name">Name</FormLabel>
-      </FormGroup>
-      <FormGroup className="form-floating mb-3">
-        <FormControl
-          as="textarea"
-          style={{ height: 150 }}
-          name="description"
-          value={description}
-          onChange={onInputChange}
-          placeholder="Description"
-        />
-        <FormLabel htmlFor="description">Description</FormLabel>
-      </FormGroup>
-      <Button
-        variant="success"
-        type="submit"
-        className="float-end has-icon"
-        disabled={loading}
-      >
-        {loading && <span className="spinner-border spinner-border-sm"></span>}
-        {!loading && <FontAwesomeIcon icon={icon({ name: "plus" })} />}
-        Add
-      </Button>
-    </Form>
+    <Formik
+      onSubmit={handleSubmit}
+      validationSchema={schema}
+      initialValues={initialValues}
+    >
+      <Form noValidate>
+        <FormControl type="hidden" name="shopId" value={shopId} />
+
+        <FormGroup className="form-floating mb-3">
+          <FormControl
+            type="text"
+            name="name"
+            value={name}
+            onChange={onInputChange}
+            placeholder="Name"
+            required
+          />
+          <FormLabel htmlFor="name">Name</FormLabel>
+          <ErrorMessage
+            name="name"
+            component="span"
+            className="text-danger"
+          />
+        </FormGroup>
+
+        <FormGroup className="form-floating mb-3">
+          <FormControl
+            as="textarea"
+            style={{ height: 150 }}
+            name="description"
+            value={description}
+            onChange={onInputChange}
+            placeholder="Description"
+          />
+          <FormLabel htmlFor="description">Description</FormLabel>
+          <ErrorMessage
+            name="description"
+            component="span"
+            className="text-danger"
+          />
+        </FormGroup>
+        <Button
+          variant="success"
+          type="submit"
+          className="float-end has-icon"
+          disabled={loading}
+        >
+          {loading && (
+            <span className="spinner-border spinner-border-sm"></span>
+          )}
+          {!loading && <FontAwesomeIcon icon={icon({ name: "plus" })} />}
+          Add
+        </Button>
+      </Form>
+    </Formik>
   );
 }
 

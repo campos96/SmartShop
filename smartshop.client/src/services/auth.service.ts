@@ -1,4 +1,19 @@
 import { API_URL, ACCOUNT } from "../endpoints";
+import AuthenticationResult from "../types/AuthenticationResult";
+import { Signup } from "../types/Signup";
+import request from "./request.service";
+
+export const signup = (signup: Signup) => {
+  return request(API_URL + ACCOUNT.SIGNUP, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json; charset=UTF-8;",
+    },
+    body: JSON.stringify({ ...signup }),
+  }).then((response) => {
+    return response;
+  });
+};
 
 export const login = (username: string, password: string) => {
   return request(API_URL + ACCOUNT.LOGIN, {
@@ -16,17 +31,17 @@ export const login = (username: string, password: string) => {
       localStorage.setItem("AccessToken", authResult.accessToken);
       localStorage.setItem("UserFullName", authResult.userFullName);
       localStorage.setItem("Shop", JSON.stringify(authResult.shop));
-        var expirationDate = new Date();
+      var expirationDate = new Date();
       expirationDate.setSeconds(
         expirationDate.getSeconds() + authResult.expiresIn
       );
-        localStorage.setItem(
-          "AccessTokenExpiration",
-          expirationDate.getTime().toString()
-        );
-      }
+      localStorage.setItem(
+        "AccessTokenExpiration",
+        expirationDate.getTime().toString()
+      );
+    }
     return response;
-    });
+  });
 };
 
 export const authoridedUser = () => {
