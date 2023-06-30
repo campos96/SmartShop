@@ -1,8 +1,4 @@
-import { ErrorMessage, Field, Formik, Form } from "formik";
 import { useState } from "react";
-import * as Yup from "yup";
-import { login } from "../../services/auth.service";
-import { PATHS } from "../../routes/paths";
 import {
   Button,
   FormCheck,
@@ -10,6 +6,10 @@ import {
   FormLabel,
   Spinner,
 } from "react-bootstrap";
+import { ErrorMessage, Field, Formik, Form } from "formik";
+import * as Yup from "yup";
+import { login } from "../../services/auth.service";
+import { PATHS } from "../../routes/paths";
 
 import ValidationErrors from "../alerts/ValidationErrors";
 import { ApiResponseError } from "../../types/ApiResponse";

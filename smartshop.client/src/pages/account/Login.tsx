@@ -1,8 +1,9 @@
-import { Navigate } from "react-router-dom";
-import { authoridedUser } from "../../services/auth.service";
-import { PATHS } from "../../routes/paths";
-import { Card, Col, Row } from "react-bootstrap";
 import { useState } from "react";
+import { Navigate } from "react-router-dom";
+import { Card, Col, Row } from "react-bootstrap";
+
+import { PATHS } from "../../routes/paths";
+import { authoridedUser } from "../../services/auth.service";
 import LoginForm from "../../components/account/LoginForm";
 
 function Login() {

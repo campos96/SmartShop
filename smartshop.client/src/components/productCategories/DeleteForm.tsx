@@ -41,7 +41,7 @@ function DeleteForm({ productCategoryId, onSuccess }: DeleteRequest) {
         console.error(_content);
       }
     );
-  }, []);
+  });
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();

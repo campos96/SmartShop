@@ -1,15 +1,12 @@
-import Button from "react-bootstrap/Button";
-import Col from "react-bootstrap/Col";
-import Form from "react-bootstrap/Form";
-import Row from "react-bootstrap/Row";
+import { useState } from "react";
+import { Spinner, Button, Row, Col, Form } from "react-bootstrap";
+
 import * as formik from "formik";
 import * as yup from "yup";
 import { Signup } from "../../types/Signup";
 import { signup } from "../../services/auth.service";
-import { useState } from "react";
 import { ApiResponseError } from "../../types/ApiResponse";
 import ValidationErrors from "../alerts/ValidationErrors";
-import { Spinner } from "react-bootstrap";
 
 function SignupForm({ onSignupSucceed = () => {} }) {
   const [loading, setLoading] = useState<boolean>(false);

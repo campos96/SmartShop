@@ -1,20 +1,22 @@
-import { ReactNode } from "react";
-
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min";
-
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import { Outlet } from "react-router-dom";
+import { Container } from "react-bootstrap";
 
 function LayoutAuth() {
   return (
     <>
-      <Navbar />
-      <div className="container-xxl mt-5">
-        <Outlet />
-      </div>
-      <Footer />
+      <header>
+        <Navbar />
+      </header>
+      <main>
+        <Container fluid="xxl" className="mt-5">
+          <Outlet />
+        </Container>
+      </main>
+      <footer>
+        <Footer />
+      </footer>
     </>
   );
 }

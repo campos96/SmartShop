@@ -1,9 +1,10 @@
+import { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { PATHS } from "../../routes/paths";
-import { authoridedUser } from "../../services/auth.service";
 import { Card, Col, Row } from "react-bootstrap";
+
+import { authoridedUser } from "../../services/auth.service";
 import SignupForm from "../../components/account/SignupForm";
-import { useState } from "react";
 
 function Register() {
   const [signupSucceed, setSignupSucceed] = useState<boolean>(false);
