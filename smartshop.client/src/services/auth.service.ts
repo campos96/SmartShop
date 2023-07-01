@@ -1,6 +1,6 @@
 import { API_URL, ACCOUNT } from "../endpoints";
 import AuthenticationResult from "../types/AuthenticationResult";
-import { Signup } from "../types/Signup";
+import { Signup } from "../classes/Signup";
 import request from "./request.service";
 
 export const signup = (signup: Signup) => {

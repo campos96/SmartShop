@@ -3,7 +3,7 @@ import { Spinner, Button, Row, Col, Form } from "react-bootstrap";
 
 import * as formik from "formik";
 import * as yup from "yup";
-import { Signup } from "../../types/Signup";
+import { Signup } from "../../classes/Signup";
 import { signup } from "../../services/auth.service";
 import { ApiResponseError } from "../../types/ApiResponse";
 import ValidationErrors from "../alerts/ValidationErrors";

@@ -114,3 +114,7 @@ form .btn .spinner-border {
 .form-floating .form-label::after {
     opacity: 0 !important;
 }
+
+.form-switch .form-check-input {
+    margin-top: 0.325rem !important;
+}

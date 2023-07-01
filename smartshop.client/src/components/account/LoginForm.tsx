@@ -1,32 +1,20 @@
 import { useState } from "react";
-import {
-  Button,
-  FormCheck,
-  FormGroup,
-  FormLabel,
-  Spinner,
-} from "react-bootstrap";
-import { ErrorMessage, Field, Formik, Form } from "formik";
+import { Button, Spinner, Form } from "react-bootstrap";
+import * as formik from "formik";
 import * as Yup from "yup";
 import { login } from "../../services/auth.service";
 import { PATHS } from "../../routes/paths";
 
-import ValidationErrors from "../alerts/ValidationErrors";
 import { ApiResponseError } from "../../types/ApiResponse";
+import { Login } from "../../classes/Login";
+import ValidationErrors from "../alerts/ValidationErrors";
 
 function LoginForm({ onAuthSucceed = () => {} }) {
   const [loading, setLoading] = useState<boolean>(false);
-  const [errors, setErrors] = useState<Array<ApiResponseError>>();
+  const [validationErrors, setValidationErrors] =
+    useState<Array<ApiResponseError>>();
 
-  const initialValues: {
-    username: string;
-    password: string;
-    rememberMe: boolean;
-  } = {
-    username: "",
-    password: "",
-    rememberMe: false,
-  };
+  const { Formik } = formik;
 
   const validationSchema = Yup.object().shape({
     username: Yup.string().required("This field is required!"),
@@ -39,7 +27,7 @@ function LoginForm({ onAuthSucceed = () => {} }) {
     rememberMe: boolean;
   }) => {
     const { username, password } = formValues;
-    setErrors(undefined);
+    setValidationErrors(undefined);
     setLoading(true);
     login(username, password)
       .then(
@@ -47,11 +35,11 @@ function LoginForm({ onAuthSucceed = () => {} }) {
           if (response.status === 200) {
             onAuthSucceed();
           } else {
-            setErrors(response.errors);
+            setValidationErrors(response.errors);
           }
         },
         (error) => {
-          setErrors([{ key: "", value: "An error has ocurred." }]);
+          setValidationErrors([{ key: "", value: "An error has ocurred." }]);
         }
       )
       .then(() => {
@@ -61,66 +49,63 @@ function LoginForm({ onAuthSucceed = () => {} }) {
 
   return (
     <Formik
-      initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={handleLogin}
+      initialValues={{ ...new Login() }}
     >
-      <Form>
-        <FormGroup className="form-floating mb-3">
-          <Field
-            name="username"
-            type="text"
-            className="form-control"
-            placeholder="Username"
-          />
-          <FormLabel htmlFor="username">Username</FormLabel>
-          <ErrorMessage
-            name="username"
-            component="span"
-            className="text-danger"
-          />
-        </FormGroup>
-        <FormGroup className="form-floating mb-3">
-          <Field
-            name="password"
-            type="password"
-            className="form-control"
-            placeholder="Password:"
-          />
-          <FormLabel htmlFor="password">Password</FormLabel>
-          <ErrorMessage
-            name="password"
-            component="span"
-            className="text-danger"
-          />
-        </FormGroup>
-        <FormGroup className="mb-3">
-          <FormCheck className="form-check form-switch">
-            <Field
-              name="rememberMe"
-              className="form-check-input"
-              type="checkbox"
-              role="switch"
+      {({ handleSubmit, handleChange, values, touched, errors }) => (
+        <Form noValidate onSubmit={handleSubmit}>
+          <Form.Floating className="mb-3">
+            <Form.Control
+              type="text"
+              name="username"
+              placeholder="Username"
+              value={values.username}
+              onChange={handleChange}
+              isInvalid={!!errors.username}
             />
-            <FormCheck.Label htmlFor="rememberMe">Remember me</FormCheck.Label>
-          </FormCheck>
-        </FormGroup>
+            <Form.Label htmlFor="username">Username</Form.Label>
+            <Form.Control.Feedback type="invalid">
+              {values.username}
+            </Form.Control.Feedback>
+          </Form.Floating>
+          <Form.Floating className="mb-3">
+            <Form.Control
+              type="password"
+              name="password"
+              placeholder="Password:"
+              value={values.password}
+              onChange={handleChange}
+              isInvalid={!!errors.password}
+            />
+            <Form.Label htmlFor="password">Password</Form.Label>
+            <Form.Control.Feedback type="invalid">
+              {values.password}
+            </Form.Control.Feedback>
+          </Form.Floating>
+          <Form.Group className="mb-3">
+            <Form.Check type="checkbox" className="form-switch" id="rememberMe">
+              <Form.Check.Input type="checkbox" role="checkbox" />
+              <Form.Check.Label>Remember me</Form.Check.Label>
+            </Form.Check>
+          </Form.Group>
 
-        {errors && <ValidationErrors list={errors} />}
+          {validationErrors && <ValidationErrors list={validationErrors} />}
 
-        <FormGroup className="mb-3">
-          <a
-            href={PATHS.ACCOUNT_PASSWORD_RECOVERY}
-            className="text-secondary float-start mt-2"
-          >
-            Forgot password?
-          </a>
-          <Button variant="primary" type="submit" className="float-end">
-            {loading && <Spinner animation="border" size="sm"></Spinner>}
-            <span>Log in</span>
-          </Button>
-        </FormGroup>
-      </Form>
+          <Form.Group className="mb-3">
+            <a
+              href={PATHS.ACCOUNT_PASSWORD_RECOVERY}
+              className="text-secondary float-start mt-2"
+            >
+              Forgot password?
+            </a>
+            <Button variant="primary" type="submit" className="float-end">
+              {loading && <Spinner animation="border" size="sm"></Spinner>}
+              <span>Log in</span>
+            </Button>
+          </Form.Group>
+        </Form>
+      )}
     </Formik>
   );
 }
