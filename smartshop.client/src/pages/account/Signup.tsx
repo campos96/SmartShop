@@ -3,13 +3,13 @@ import { Navigate } from "react-router-dom";
 import { PATHS } from "../../routes/paths";
 import { Card, Col, Row } from "react-bootstrap";
 
-import { authoridedUser } from "../../services/auth.service";
+import { authorizedUser } from "../../services/auth.service";
 import SignupForm from "../../components/account/SignupForm";
 
 function Register() {
   const [signupSucceed, setSignupSucceed] = useState<boolean>(false);
 
-  if (authoridedUser() || signupSucceed) {
+  if (authorizedUser() || signupSucceed) {
     return <Navigate to={PATHS.ADMIN} />;
   }
 

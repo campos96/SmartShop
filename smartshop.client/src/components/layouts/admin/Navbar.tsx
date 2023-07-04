@@ -1,16 +1,16 @@
 import { PATHS } from "../../../routes/paths";
-import { authoridedUser } from "../../../services/auth.service";
+import { authorizedUser } from "../../../services/auth.service";
 import { selectedShop } from "../../../services/auth.service";
 
 function Navbar() {
-  var user = authoridedUser();
+  var user = authorizedUser();
   var shop = selectedShop();
 
   return (
     <nav className="navbar navbar-expand-lg bg-white border-bottom shadow">
       <div className="container-fluid">
         <a className="navbar-brand" href={PATHS.ADMIN}>
-          SmartShop Admin | {shop.name}
+          SmartShop Admin {shop && <span>| {shop.name}</span>}
         </a>
         <button
           className="navbar-toggler"

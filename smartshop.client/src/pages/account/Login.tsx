@@ -3,13 +3,13 @@ import { Navigate } from "react-router-dom";
 import { Card, Col, Row } from "react-bootstrap";
 
 import { PATHS } from "../../routes/paths";
-import { authoridedUser } from "../../services/auth.service";
+import { authorizedUser } from "../../services/auth.service";
 import LoginForm from "../../components/account/LoginForm";
 
 function Login() {
   const [authSucceed, setAuthSucceed] = useState<boolean>(false);
 
-  if (authoridedUser() || authSucceed) {
+  if (authorizedUser() || authSucceed) {
     return <Navigate to={PATHS.ADMIN} />;
   }
 

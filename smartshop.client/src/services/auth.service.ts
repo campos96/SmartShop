@@ -44,7 +44,7 @@ export const login = (username: string, password: string) => {
   });
 };
 
-export const authoridedUser = () => {
+export const authorizedUser = () => {
   const accessToken = localStorage.getItem("AccessToken");
   const accessTokenExpiration = localStorage.getItem("AccessTokenExpiration");
   const userFullName = localStorage.getItem("UserFullName");
