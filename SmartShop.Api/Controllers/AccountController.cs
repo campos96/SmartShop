@@ -86,14 +86,6 @@ namespace SmartShop.Api.Controllers
                 });
             }
 
-            if (account.Users == null || account.Users.Count() == 0)
-            {
-                return ApiResult.Unauthorized(errors: new
-                {
-                    userName = new[] { "No user or shop assigned" }
-                });
-            }
-
             var issuer = _configuration.GetValue<string>("Jwt:Issuer");
             var audience = _configuration.GetValue<string>("Jwt:Audience");
             var key = Encoding.ASCII.GetBytes(_configuration.GetValue<string>("Jwt:Key")!);
@@ -123,8 +115,7 @@ namespace SmartShop.Api.Controllers
             {
                 AccessToken = stringToken,
                 ExpiresIn = (int)(tokenDescriptor.Expires.Value - DateTime.UtcNow).TotalSeconds,
-                UserFullName = account.FullName,
-                Shop = account.Users.First().Shop
+                UserFullName = account.FullName
             };
 
             return ApiResult.Ok(payload: authenticationResult);
