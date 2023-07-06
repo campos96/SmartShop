@@ -17,6 +17,16 @@ namespace SmartShop.Api
             });
         }
 
+        public static NotFoundObjectResult NotFound(string? title = null, object? errors = null)
+        {
+            return new NotFoundObjectResult(new Response
+            {
+                Status = StatusCodes.Status400BadRequest,
+                Title = title ?? "NotFound",
+                Errors = errors
+            });
+        }
+
         public static OkObjectResult Ok(string? title = null, object? payload = null)
         {
             return new OkObjectResult(new Response
