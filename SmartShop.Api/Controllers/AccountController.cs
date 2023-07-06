@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using SmartShop.Api.Data;
@@ -10,8 +11,9 @@ using System.Text;
 
 namespace SmartShop.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
+    [Route("api/[controller]")]
     public class AccountController : ControllerBase
     {
         private readonly SmartShopContext _context;
@@ -23,6 +25,8 @@ namespace SmartShop.Api.Controllers
             _configuration = configuration;
         }
 
+        // POST: api/account/signup
+        [AllowAnonymous]
         [HttpPost("signup")]
         public async Task<IActionResult> Signup(Signup signup)
         {
@@ -63,7 +67,8 @@ namespace SmartShop.Api.Controllers
             return ApiResult.Ok();
         }
 
-        // GET: api/account/login
+        // POST: api/account/login
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<ActionResult> Login(Login login)
         {
@@ -115,10 +120,43 @@ namespace SmartShop.Api.Controllers
             {
                 AccessToken = stringToken,
                 ExpiresIn = (int)(tokenDescriptor.Expires.Value - DateTime.UtcNow).TotalSeconds,
-                UserFullName = account.FullName
+                UserFullName = account.FullName,
+                AccountId = account.Id,
             };
 
             return ApiResult.Ok(payload: authenticationResult);
+        }
+
+        // POST: api/account/users/{accountId}
+        [HttpGet("users/{accountId}")]
+        public async Task<IActionResult> Users(Guid accountId)
+        {
+            if (accountId == Guid.Empty)
+            {
+                return ApiResult.BadRequest(errors: new
+                {
+                    Account = new[] { "Invalid request." }
+                });
+            }
+
+            var accountExist = await _context.Accounts
+                .AnyAsync(a => a.Id == accountId && !a.IsLocked);
+
+            if (!accountExist)
+            {
+                return ApiResult.BadRequest(errors: new
+                {
+                    Account = new[] { "Account invalid or locked." }
+                });
+            }
+
+            var users = await _context.Users
+                .Include(u => u.Shop)
+                .Include(u => u.Roles)
+                .Where(u => u.AccountId == accountId)
+                .ToListAsync();
+
+            return ApiResult.Ok(payload: users);
         }
     }
 }
